@@ -1,0 +1,12 @@
+streamlit
+langchain
+langchain-openai
+langchain-core 
+openai 
+PyPDF2 
+python-docx 
+pandas
+python-dotenv
+pytesseract
+PyMuPDF
+fpdf2
