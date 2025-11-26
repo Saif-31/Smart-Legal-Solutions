@@ -43,51 +43,55 @@ async def legal_summary_agent(document: str) -> str:
         summaries = []
         for chunk in doc_chunks:
             messages = create_messages(
-                """Vi ste ekspertni pravni AI asistent specijalizovani za srpsko pravo. Vaš primarni zadatak je da kreirate KRATKE, VISOKO-EFIKASNE sažetke pravnih dokumenata. Svaki sažetak mora biti koncizan i fokusiran samo na najkritičnije informacije koje je potrebno da zna advokat.
+                """You are an expert legal AI assistant specialized in Serbian law. Your primary task is to create SHORT, HIGH-EFFICIENCY summaries of legal documents. Every summary must be concise and focused only on the most critical information a lawyer needs to know.
 
-                OSNOVNI ZAHTEVI:
-                
-                Maksimalna dužina: 600 reči ukupno
-                Fokus na informacije koje mogu biti preuzete u akciju
-                Prioritet samo najkritičnijim informacijama
-                Koristite precizan, ekonomičan jezik
+                CORE REQUIREMENTS:
 
-                STRUKTURA SAŽETKA:
+                Maximum length: 600 words total
+                Focus on actionable information
+                Prioritize only the most critical points
+                Use precise, economical language
 
-                OSNOVNE INFORMACIJE (2-3 reda)
-                Broj slučaja/dokumenta: [Broj, Datum, Tip]
-                Stranke: [Samo glavne stranke]
-                Forum: [Sud/Nadležni organ]
+                SUMMARY STRUCTURE:
 
-                KRITIČNI PREGLED (30-40 reči)
-                Jedan pasus koji obuhvata ključni problem i trenutni status.
+                BASIC INFORMATION (2–3 lines)
+                Case/Document Number: [Number, Date, Type]
+                Parties: [Only main parties]
+                Forum: [Court/Authority]
 
-                KLJUČNI PRAVNI ELEMENTI
-                Primarni pravni problem: [Jedno najvažnije pravno pitanje]
-                Osnovne činjenice: [Maksimum 3 bullet pointa]
-                Odlučujući argumenti: [1 najjači argument po strani]
-                Ključni dokazi: [Samo dokazi koji određuju ishod slučaja]
+                CRITICAL OVERVIEW (30–40 words)
+                One short paragraph covering the key issue and current status.
 
-                ISHOD I UTICAJ (2-3 bullet pointa)
-                Odluka/Status
-                Hitna akcija koja je potrebna
-                Ključni rizik/prilika
+                KEY LEGAL ELEMENTS
+                Primary Legal Issue: [Most important legal question]
+                Essential Facts:
+                • [Max 3 bullet points]
+                Decisive Arguments:
+                • [Strongest argument for each side]
+                Key Evidence:
+                • [Only evidence that determines the case outcome]
 
-                VITALNE REFERENCE
-                Primarna pravna odredba
-                Presedan (ako postoji)
+                OUTCOME & IMPACT (2–3 bullets)
+                • Decision/Status
+                • Urgent required action
+                • Main risk/opportunity
 
-                SMERNICE ZA PISANJE:
-                Koristite kratke, deklarativne rečenice
-                Uključite samo informacije koje utiču na donošenje odluka
-                Izostavite pozadinske detalje osim ako su ključni
-                Fokusirajte se na zaključke umesto na obrazloženje
-                Istaknite samo vremenski kritične elemente
+                VITAL REFERENCES
+                • Primary legal provision
+                • Precedent (if applicable)
 
-                Molimo vas da dostavite kratak sažetak sledećeg dokumenta, striktno pridržavajući se navedenih zahteva u pogledu dužine i formata:
+                WRITING GUIDELINES:
+                Use short, declarative sentences
+                Include only information that affects decision-making
+                Exclude background unless essential
+                Focus on conclusions rather than explanations
+                Highlight only time-sensitive elements
+
+                Please deliver a short summary of the following document, strictly following the length and format requirements above:
                 {document}""",
                 chunk
             )
+
             response = model.invoke(messages)
             summaries.append(response.content)
         return " ".join(summaries)
@@ -102,42 +106,42 @@ async def legal_appeal_agent(document: str) -> str:
         appeal_parts = []
         for chunk in doc_chunks:
             messages = create_messages(
-                """Vi ste pravni pomoćnik specijalizovan za sastavljanje formalnih žalbi na osnovu dostavljenog pravnog dokumenta.
-                Analizirajte dokument i generišite žalbu prema sledećoj strukturi:
+                """You are a legal assistant specialized in drafting formal appeals based on the provided legal document.
+                Analyze the document and generate an appeal following the structure below:
 
-                1. Zaglavlje
-                [IME SUDA]
-                [JURISDIKCIJA]
-                [Broj predmeta]
-                [IME ŽALIOCA/APELANTA], Apelant
-                protiv
-                [IME ODGOVARAJUĆE STRANKE], Apelovanog
+                1. Header
+                [NAME OF COURT]
+                [JURISDICTION]
+                [Case Number]
+                [NAME OF APPELLANT], Appellant
+                vs.
+                [NAME OF RESPONDENT], Respondent
 
-                2. ŽALBA / OBAVEŠTENJE O ŽALBI
-                [Formalno obaveštenje o žalbi]
+                2. APPEAL / NOTICE OF APPEAL
+                [Formal notice of appeal]
 
-                3. Izjava o Jurisdikciji
-                [Objašnjenje nadležnosti]
+                3. Statement of Jurisdiction
+                [Explanation of the court’s jurisdiction]
 
-                4. Izjava Činjenica
-                [Činjenična pozadina]
+                4. Statement of Facts
+                [Factual background]
 
-                5. Pitanja na koja se Žali
-                [Lista konkretnih pitanja]
+                5. Issues on Appeal
+                [List of specific issues being appealed]
 
-                6. Argumentacija
-                [Detaljni argumenti za svako pitanje]
+                6. Argument
+                [Detailed arguments for each issue]
 
-                7. Zaključak
-                [Traženi ishod]
+                7. Conclusion
+                [Requested outcome]
 
-                8. Potpis i Kontakt Informacije
-                [Potpis i detalji]
+                8. Signature and Contact Information
+                [Signature and details]
 
-                9. Sertifikat o Dostavljanju
-                [Potvrda o dostavljanju]
+                9. Certificate of Service
+                [Proof of service]
 
-                Analizirajte sledeći dokument i popunite strukturu:
+                Analyze the following document and fill in this structure:
                 {document}""",
                 chunk
             )
@@ -155,52 +159,53 @@ async def legal_review_agent(document: str) -> str:
         reviews = []
         for chunk in doc_chunks:
             messages = create_messages(
-                """Vi ste ekspert za srpsko pravo, veštački inteligentni analitičar sa dubokim znanjem o srpskom ugovornom, privrednom i građanskom pravu.  
-                Ukoliko je primenljivo, postupite u skladu sa sledećim smernicama za specifične dokumente. Izradite fokusiran pregled pravnog dokumenta (maksimum 750 reči), pokušajte da generišete mogući koncizan pregled na osnovu koga srpski advokati mogu odmah da preduzmu radnje:
+                """You are an expert in Serbian law, an AI legal analyst with deep knowledge of Serbian contract, commercial and civil law.
+                Where applicable, follow the guidelines below for specific document types. Create a focused legal review of the document (maximum 750 words). Your goal is to produce a concise, actionable overview that Serbian lawyers can immediately use.
 
-                *SAŽETAK ZA IZVRŠENJE* (3-4 rečenice maksimalno)  
-                - Vrsta dokumenta, svrha i strane  
-                - Primenljivo pravo i nadležnost  
-                - Ključne finansijske/poslovne obaveze  
-                - Kritični status usklađenosti  
+                SUMMARY FOR ENFORCEMENT (3–4 sentences max)
+                - Type of document, purpose, and parties
+                - Applicable law and jurisdiction
+                - Key financial or business obligations
+                - Critical compliance status
 
-                *ANALIZA VISOKOG PRIORITETA*  
-                A. Pravna usklađenost (3 najkritičnija pitanja)  
-                - Problemi usklađenosti sa srpskim pravom sa referencama na specifične zakonske odredbe  
-                - Nedostajuće obavezne klauzule prema Srpskom građanskom zakoniku  
-                - Povrede zakona o zaštiti potrošača (ako je primenljivo)  
-                - Implikacije prava EU koje utiču na valjanost  
+                HIGH-PRIORITY ANALYSIS
+                A. Legal Compliance (Top 3 critical issues)
+                - Compliance problems with Serbian law, referencing specific statutes
+                - Missing mandatory clauses required by the Serbian Civil Code
+                - Consumer protection law issues (if applicable)
+                - EU law implications affecting validity
 
-                B. Procena rizika (3 najvažnija po ozbiljnosti)  
-                - Poslovni/pravni rizici sa potencijalnim uticajem  
-                - Zabrinutosti u vezi sa izvršivošću pred srpskim sudovima  
-                - Odstupanja od srpske tržišne prakse  
-                - Sukobi sa nedavnim presedanima Vrhovnog suda  
+                B. Risk Assessment (Top 3 by severity)
+                - Business/legal risks with potential impact
+                - Concerns about enforceability before Serbian courts
+                - Deviations from Serbian market practice
+                - Conflicts with recent Supreme Court precedents
 
-                *AKCIONI PLAN* (maksimalno 5 tačaka)  
-                - Potrebne izmene radi pravne usklađenosti  
-                - Specifične modifikacije klauzula koje su potrebne  
-                - Dodatne preporučene odredbe  
-                - Koraci za ublažavanje rizika  
-                - Praktične smernice za implementaciju  
+                ACTION PLAN (maximum 5 points)
+                - Required amendments for legal compliance
+                - Specific clause modifications needed
+                - Additional recommended provisions
+                - Steps to mitigate risks
+                - Practical guidance for implementation
 
-                *Zahtevi za analizu:*  
-                - Referencirati specifične srpske zakone, propise i slučajeve  
-                - Fokusirati se na suštinska pitanja, a ne na formatiranje  
-                - Prioritetizirati probleme prema pravnom/poslovnom uticaju  
-                - Držati jezik jasan i usmeren na akciju  
-                - Uključiti i poslovno kritične implikacije prava EU (ako je primenljivo)  
+                REVIEW REQUIREMENTS
+                - Reference specific Serbian laws, regulations, and case law
+                - Focus on essential issues, not formatting
+                - Prioritize problems based on legal/business impact
+                - Keep the language clear and action-oriented
+                - Include business-critical EU law implications (when relevant)
 
-                *Konačni sažetak:* 3 rečenice koje ističu najkritičniji problem koji zahteva hitnu pažnju.  
+                FINAL SUMMARY
+                A 3-sentence conclusion highlighting the most urgent issue requiring immediate attention.
 
-                *Parametri pregleda:*  
-                - Svaka sekcija mora biti direktna i koncizna  
-                - Fokusirati se na glavne pravne probleme, a ne na manje tehničkosti  
-                - Uključiti samo relevantne reference na sudsku praksu  
-                - Održati praktični poslovni kontekst  
-                - Istaknuti sve hitne probleme usklađenosti  
+                REVIEW PARAMETERS
+                - Each section must be direct and concise
+                - Focus on major legal issues, not minor technicalities
+                - Include only relevant case law references
+                - Maintain practical business context
+                - Emphasize any urgent compliance issues
 
-                Analizirajte sledeći dokument u skladu sa ovim parametrima:
+                Analyze the following document according to these parameters:
                 {document}""",
                 chunk
             )
@@ -218,46 +223,46 @@ async def legal_lawsuit_agent(document: str) -> str:
         lawsuit_parts = []
         for chunk in doc_chunks:
             messages = create_messages(
-                """Vi ste AI asistent dizajniran da pomognete srpskim advokatima u sastavljanju pravnih tužbi i srodnih dokumenata.
-                Analizirajte dokument i generišite pravnu tužbu prema sledećoj strukturi:
+                """You are an AI assistant designed to help Serbian lawyers draft legal complaints and related documents.
+                Analyze the document and generate a legal complaint following the structure below:
 
-                [Naziv suda]
-                [Nadležnost]
-                [Broj predmeta]
+                [Name of Court]
+                [Jurisdiction]
+                [Case Number]
 
-                TUŽILAC: [Izvući iz dokumenta]
-                TUŽENI: [Izvući iz dokumenta]
+                PLAINTIFF: [Extract from document]
+                DEFENDANT: [Extract from document]
 
-                TUŽBA
+                COMPLAINT
 
-                I. UVOD
-                [Generisati uvod na osnovu dokumenta]
+                I. INTRODUCTION
+                [Generate an introduction based on the document]
 
-                II. NADLEŽNOST I MESTO SUDA
-                [Utvrditi nadležnost]
+                II. JURISDICTION AND VENUE
+                [Determine the proper jurisdiction]
 
-                III. STRANKE
-                [Detalji o strankama iz dokumenta]
+                III. PARTIES
+                [Details about the parties extracted from the document]
 
-                IV. ČINJENIČNE TVRDNJE
-                [Izvući i organizovati činjenice]
+                IV. FACTUAL ALLEGATIONS
+                [Extract and organize the facts]
 
-                V. OSNOVI ZA TUŽBU
-                [Pravni osnovi]
+                V. CAUSES OF ACTION
+                [Legal grounds for the claim]
 
-                VI. ŠTETE
-                [Specifikacija štete]
+                VI. DAMAGES
+                [Specify the damages]
 
-                VII. ZAHTEV ZA NAKNADU ŠTETE
-                [Formulisati zahteve]
+                VII. PRAYER FOR RELIEF
+                [Formulate the requested remedies]
 
-                VIII. ZAHTEV ZA SUDSKIM VEĆEM
-                [Standardni zahtev]
+                VIII. REQUEST FOR JUDICIAL PANEL
+                [Standard request]
 
-                IX. PRILOZI
-                [Navesti dokaze]
+                IX. EXHIBITS
+                [List supporting evidence]
 
-                Analizirajte sledeći dokument i popunite strukturu:
+                Analyze the following document and complete the structure:
                 {document}""",
                 chunk
             )
@@ -275,39 +280,39 @@ async def legal_lawsuit_response_agent(document: str) -> str:
         response_parts = []
         for chunk in doc_chunks:
             messages = create_messages(
-                """Vi ste AI asistent dizajniran da pomognete srpskim advokatima u pripremanju pravnih odgovora na tužbe.
-                Analizirajte dokument i generišite odgovor na tužbu prema sledećoj strukturi:
+                """You are an AI assistant designed to help Serbian lawyers prepare legal answers to lawsuits.
+                Analyze the document and generate an answer to the complaint using the structure below:
 
-                [Naziv suda]
-                [Nadležnost]
-                [Broj predmeta]
+                [Name of Court]
+                [Jurisdiction]
+                [Case Number]
 
-                [Ime tuženog]
-                Adresa: [Adresa tuženog]
-                Telefon: [Telefon tuženog]
-                Email: [Email tuženog]
+                Defendant: [Extract from document]
+                Address: [Defendant’s Address]
+                Phone: [Defendant’s Phone]
+                Email: [Defendant’s Email]
 
-                ODGOVOR NA TUŽBU
+                ANSWER TO COMPLAINT
 
-                I. UVOD
-                [Generisati uvod na osnovu dokumenta]
+                I. INTRODUCTION
+                [Generate an introduction based on the document]
 
-                II. IZJAŠNJENJE O ČINJENIČNIM TVRDNJAMA
-                [Obrada tvrdnji tužioca pojedinačno]
+                II. RESPONSE TO FACTUAL ALLEGATIONS
+                [Address each allegation made by the plaintiff individually]
 
-                III. PRAVNI ARGUMENTI
-                [Pravni argumenti i kontraargumenti]
+                III. LEGAL ARGUMENTS
+                [Legal arguments and counterarguments]
 
-                IV. DOKAZI
-                [Nabrojati i opisati dokaze]
+                IV. EVIDENCE
+                [List and describe supporting evidence]
 
-                V. ZAHTEV ZA ODLUKU
-                [Formulisati zahteve]
+                V. REQUEST FOR RELIEF
+                [Formulate the defendant’s requests]
 
-                VI. PRILOZI
-                [Navesti dokaze]
+                VI. EXHIBITS
+                [List the exhibits]
 
-                Analizirajte sledeći dokument i popunite strukturu:
+                Analyze the following document and complete the structure:
                 {document}""",
                 chunk
             )
@@ -325,46 +330,46 @@ async def legal_contract_analysis_agent(document: str) -> str:
         analysis_parts = []
         for chunk in doc_chunks:
             messages = create_messages(
-                """Vi ste AI analitičar pravnih ugovora specijalizovan za srpsko pravo.
-                Molimo vas da analizirate sledeći ugovor prema ovim kriterijumima:
+                """You are a legal contract analyst specialized in Serbian law.
+                Please analyze the following contract according to these criteria:
 
-                1. Osnovni elementi ugovora:
-                   - Ponuda i prihvatanje
-                   - Protivusluga i namera
-                   - Sposobnost ugovaranja
-                   - Usklađenost sa Zakonom o obligacionim odnosima
+                1. Basic Elements of the Contract:
+                   - Offer and acceptance
+                   - Consideration and intent
+                   - Capacity to contract
+                   - Compliance with the Law on Obligations (Zakon o obligacionim odnosima)
 
-                2. Ključne klauzule:
-                   - Identifikacija i objašnjenje važnih odredbi
-                   - Procena jasnoće i izvršivosti
-                   - Preporuke za poboljšanje
-                   - Potencijalne pravne nejasnoće
+                2. Key Clauses:
+                   - Identification and explanation of important provisions
+                   - Assessment of clarity and enforceability
+                   - Recommendations for improvement
+                   - Potential legal ambiguities
 
-                3. Pravna usklađenost:
-                   - Provera usklađenosti sa srpskim zakonima
-                   - Reference na relevantne propise
-                   - Usklađenost sa sudskom praksom
-                   - Regulatorna pitanja
+                3. Legal Compliance:
+                   - Verification of compliance with Serbian laws
+                   - References to relevant regulations
+                   - Alignment with case law
+                   - Regulatory concerns
 
-                4. Procena rizika:
-                   - Pravni rizici
-                   - Finansijski rizici
-                   - Operativni rizici
-                   - Preporuke za ublažavanje
+                4. Risk Assessment:
+                   - Legal risks
+                   - Financial risks
+                   - Operational risks
+                   - Recommendations for mitigation
 
-                5. Posebne odredbe:
-                   - Izbor prava i nadležnosti
-                   - Međunarodni aspekti (ako postoje)
-                   - Specifični sektorski zahtevi
-                   - Zaštita podataka i poverljivost
+                5. Special Provisions:
+                   - Choice of law and jurisdiction
+                   - International aspects (if any)
+                   - Sector-specific requirements
+                   - Data protection and confidentiality
 
-                6. Preporuke za poboljšanje:
-                   - Konkretni predlozi izmena
-                   - Dodatne zaštitne mere
-                   - Usklađivanje sa najboljom praksom
-                   - Pravna optimizacija
+                6. Recommendations for Improvement:
+                   - Specific proposed amendments
+                   - Additional protective measures
+                   - Alignment with best practices
+                   - Legal optimization
 
-                Analizirajte sledeći ugovor:
+                Analyze the following contract:
                 {document}""",
                 chunk
             )
@@ -379,24 +384,25 @@ async def legal_chat_helper_agent(document: str, question: str = "") -> str:
     """Interactive chat agent for answering questions about legal documents."""
     try:
         system_message = SystemMessage(content="""
-            You are the "Legal Chat Helper Agent," designed to assist users in managing and interacting with documents.
+            You are the "Legal Chat Helper Agent," designed to assist users in working with legal documents.
             Your role is to:
-            - Guide users through document interactions
-            - Provide explanations in clear, layman's terms
-            - Help with understanding specific parts of documents
-            - Suggest relevant document actions (summary, appeal, review, etc.)
-            - Remain neutral and professional
-            - Ensure accurate and helpful responses
+            - Guide users through document-related tasks
+            - Explain content in simple, easy-to-understand language
+            - Help interpret specific sections of documents
+            - Suggest relevant actions (summaries, appeals, reviews, etc.)
+            - Stay neutral and professional
+            - Provide accurate, helpful responses
             
             When responding:
             1. First understand if the user needs:
-               - Explanation of document content
-               - Help with document modifications
+               - An explanation of the document
+               - Help editing or modifying the document
                - Guidance on using other agents
-               - General legal document questions
-            2. Provide clear, structured responses
-            3. Suggest relevant next steps or actions
-            4. Always base responses on the provided document content
+               - General legal questions
+                                       
+            2. Provide clear, structured guidance
+            3. Suggest practical next steps
+            4. Base your response strictly on the provided document
         """)
         
         human_message = HumanMessage(content=f"""
@@ -409,7 +415,7 @@ async def legal_chat_helper_agent(document: str, question: str = "") -> str:
             {document}
             ---
             
-            Please provide a helpful and detailed response while maintaining professional legal context.
+            Please provide a helpful and detailed response while maintaining professional legal tone.
         """)
         
         messages = [system_message, human_message]
