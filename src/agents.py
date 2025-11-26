@@ -88,7 +88,9 @@ async def legal_summary_agent(document: str) -> str:
                 Highlight only time-sensitive elements
 
                 Please deliver a short summary of the following document, strictly following the length and format requirements above:
-                {document}""",
+                {document}
+                
+                Always respond in English, regardless of the document language.""",
                 chunk
             )
 
@@ -142,7 +144,8 @@ async def legal_appeal_agent(document: str) -> str:
                 [Proof of service]
 
                 Analyze the following document and fill in this structure:
-                {document}""",
+                {document}
+                Always respond in English, regardless of the document language.""",
                 chunk
             )
             response = model.invoke(messages)
@@ -206,7 +209,8 @@ async def legal_review_agent(document: str) -> str:
                 - Emphasize any urgent compliance issues
 
                 Analyze the following document according to these parameters:
-                {document}""",
+                {document}
+                Always respond in English, regardless of the document language.""",
                 chunk
             )
             response = model.invoke(messages)
@@ -263,7 +267,8 @@ async def legal_lawsuit_agent(document: str) -> str:
                 [List supporting evidence]
 
                 Analyze the following document and complete the structure:
-                {document}""",
+                {document}
+                Always respond in English, regardless of the document language.""",
                 chunk
             )
             response = model.invoke(messages)
@@ -313,7 +318,8 @@ async def legal_lawsuit_response_agent(document: str) -> str:
                 [List the exhibits]
 
                 Analyze the following document and complete the structure:
-                {document}""",
+                {document}
+                Always respond in English, regardless of the document language.""",
                 chunk
             )
             response = model.invoke(messages)
@@ -370,7 +376,8 @@ async def legal_contract_analysis_agent(document: str) -> str:
                    - Legal optimization
 
                 Analyze the following contract:
-                {document}""",
+                {document}
+                Always respond in English, regardless of the document language.""",
                 chunk
             )
             response = model.invoke(messages)
@@ -403,6 +410,7 @@ async def legal_chat_helper_agent(document: str, question: str = "") -> str:
             2. Provide clear, structured guidance
             3. Suggest practical next steps
             4. Base your response strictly on the provided document
+            Always respond in English, regardless of the document language.
         """)
         
         human_message = HumanMessage(content=f"""
@@ -416,6 +424,7 @@ async def legal_chat_helper_agent(document: str, question: str = "") -> str:
             ---
             
             Please provide a helpful and detailed response while maintaining professional legal tone.
+            Always respond in English, regardless of the document language.
         """)
         
         messages = [system_message, human_message]
